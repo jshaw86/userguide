@@ -14,8 +14,8 @@
 
 <div id="topline">
 	<ul id="quicklinks">
-		<li class="first"><?php echo HTML::anchor('http://kohanaframework.org', '&nbsp;') ?></li>
-		<li class="active"><?php echo HTML::anchor('/en/userguide', 'User Guide') ?></li>
+		<li class="first"><?php echo HTML::anchor('http://michaeldpeters.com/kohanaphp.com', '&nbsp;') ?></li>
+		<li class="active"><?php echo HTML::anchor('http://michaeldpeters.com/kohanaphp.com/en/userguide', 'User Guide') ?></li>
 		<li><?php echo HTML::anchor('http://forum.kohanaframework.org', 'Forums') ?></li>
 		<li><?php echo HTML::anchor('http://dev.kohanaframework.org', 'Development') ?></li>
 		<li><?php echo HTML::anchor('http://www.kohanajobs.com', 'Kohana Jobs') ?></li>
