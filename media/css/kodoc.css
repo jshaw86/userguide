@@ -38,7 +38,7 @@ ul.breadcrumb { display: block; margin: 0; padding: 0 20px 1em; overflow: auto; 
 	
 #kodoc-content h1 { margin-left: -19px;margin-right:-19px; padding: 0.4em 19px; margin-top: 0;  background: #9CE251;  color: #113C32; }
 #kodoc-content h2 { margin-left: -19px;margin-right:-19px; padding: 0.4em 19px; background: #E3EDC4; color:#245B35; }
-#kodoc-content h3 { margin-left:-10px; margin-right:-10px; padding: 0.4em 10px; background: #E3EDC4; color:#245B35; }
+#kodoc-content h3 { margin-left:-8px; margin-right:-8px; padding: 0.4em 8px; background: #F1F8DB; color:#245B35; }
 #kodoc-content h4 { border-bottom:1px solid #ccc; }
 #kodoc-content h1 small,
 #kodoc-content h2 small,
@@ -71,24 +71,51 @@ ul.breadcrumb { display: block; margin: 0; padding: 0 20px 1em; overflow: auto; 
 	
 #kodoc-menu {
 	float:left;
-	width:198px;
+	width:188px;
 	margin-bottom:40px;
 	border:1px solid #DDDDDD;
+	padding-left:10px;
+	background:#fff;
 }
 
-	#kodoc-menu h3 { font-size: 1.4em; margin: 0; padding: .5em .8em .4em; background:#9CE251; color:#00262F; }
+	#kodoc-menu h3 { font-size: 1.4em; margin: 0; padding: .5em .8em .4em; margin-left:-10px; background:#9CE251; color:#00262F; }
+	
+	#kodoc-menu p { padding: 0; margin: 0; }
+	
+	#kodoc-menu li {
+		position:relative;
+	}
+	
+	/* Expandable section header */
+	#kodoc-menu .section {
+		display: block;
+		padding: 0.2em 0;
+		font-weight: bold;
+		color: #00262F;
+	}
+	
+	#kodoc-menu .section .toggler {
+		position:absolute;
+		top:0;
+		left:-14px;
+		width:14px;
+		height:19px;
+		background:transparent url('../img/arrow.png') 0 7px no-repeat;
+		cursor:pointer;
+	}
+	
+	#kodoc-menu .section-active .toggler {
+		background-position: 0 -13px;
+	}
 	
 	#kodoc-menu ol,
-	#kodoc-menu ul { margin: 0; padding: 0.6em 0; list-style: none; }
-	/* Lists that don't have section headers */
-	#kodoc-menu ul { padding-left:1em; background: #FFFFFF; }
-	/* Lists that have section headers */
-	#kodoc-menu ol { padding-left: 1em; background: #FFFFFF; }
-		#kodoc-menu ol ul { margin:0; padding:0; margin-bottom: 0.6em; padding-left: 1em; }
+	#kodoc-menu ul,
+	#kodoc-menu ul or,
+	#kodoc-menu ol ul { margin:0; padding:0;  padding-left: .5em; list-style:none; }
 	
-	/* Section Headers */
-	#kodoc-menu li strong { display: block; margin-bottom: 0.4em; padding: 0.2em 0; padding-left:14px; margin-left:-6px; font-weight: strong; color: #00262F; cursor: pointer; background:transparent url('../img/arrow.png') 0 7px no-repeat; }
-	#kodoc-menu li strong.active { background-position: 0 -13px; }
+	#kodoc-menu>ol,
+	#kodoc-menu>ul { padding-top:.6em; padding-bottom:.6em;}
+	
 	/* List Items */
 	#kodoc-menu li { margin: 0; padding: 0; display:block; }
 	

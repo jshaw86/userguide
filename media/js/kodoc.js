@@ -10,37 +10,38 @@ $(document).ready(function()
 	$('#kodoc-content tbody tr:even').addClass('alt');
 
 	// Toggle menus
-	$('#kodoc-menu ol > li').each(function()
+	$('#kodoc-menu li:has(ul)').each(function()
 	{
-		var link = $(this).find('strong');
-		var menu = $(this).find('ul');
-		// var togg = $('<span class="toggle">[ + ]</span>');
-
+		var link = $(this).find(':first');
+		var menu = $(this).find('ul:first,ol:first');
+		
+		link.prepend('<div class="toggler"></div>');
+		link.addClass('section');
+		
 		var open  = function()
 		{
 			// togg.html('[ &ndash; ]');
 			menu.stop().slideDown();
-			link.addClass('active');
+			link.addClass('section-active');
 		};
 
 		var close = function()
 		{
-			// togg.html('[ + ]');
 			menu.stop().slideUp();
-			link.removeClass('active');
+			link.removeClass('section-active');
 		};
 
 		if (menu.find('a[href="'+ window.location.pathname +'"]').length)
 		{
 			// Currently active menu
-			link.toggle(close, open);
-			link.addClass('active');
+			link.find('.toggler:first').toggle(close, open);
+			link.addClass('section-active');
 		}
 		else
 		{
-			menu.slideUp(0);
-			link.toggle(open, close);
-			link.removeClass('active');
+			menu.hide();
+			link.find('.toggler:first').toggle(open, close);
+			link.removeClass('section-active');
 		}
 	});
 
