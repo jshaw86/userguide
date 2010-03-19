@@ -65,6 +65,9 @@ class Controller_Userguide extends Controller_Template {
 	public function action_docs()
 	{
 		$page = $this->request->param('page');
+		
+		// trim trailing slashes
+		$page = preg_replace('~/+$~','',$page);
 
 		if ( ! $page)
 		{
@@ -106,11 +109,26 @@ class Controller_Userguide extends Controller_Template {
 		// Bind the breadcrumb
 		$this->template->bind('breadcrumb', $breadcrumb);
 
-		// Add the breadcrumb
+		// Begin building the breadcrumbs backwards
 		$breadcrumb = array();
-		$breadcrumb[$this->guide->uri()] = __('User Guide');
-		$breadcrumb[] = $this->section($page);
+		
+		// Add the page name
 		$breadcrumb[] = $this->template->title;
+		
+		// Find all the parents
+		$last = $page;
+		$current = null;
+		while ($last !== $current = preg_replace('~/[^/]+$~','',$last))
+		{
+			$breadcrumb[$current] = $this->title($current);
+			$last = $current;
+		}
+		
+		// Add the userguide root link
+		$breadcrumb[$this->guide->uri()] = __('User Guide');
+		
+		// Now reverse the array
+		$breadcrumb = array_reverse($breadcrumb);
 	}
 
 	public function action_api()
@@ -220,6 +238,11 @@ class Controller_Userguide extends Controller_Template {
 		return parent::after();
 	}
 
+	/**
+	 * Find a userguide page
+	 * @param   string   the url of the page
+	 * @return  string   the name of the file
+	 */
 	public function file($page)
 	{
 		if ( ! ($file = Kohana::find_file('guide', I18n::$lang.'/'.$page, 'md')))
@@ -227,22 +250,21 @@ class Controller_Userguide extends Controller_Template {
 			// Use the default file
 			$file = Kohana::find_file('guide', $page, 'md');
 		}
+		
+		// If no file has been found, try to see if $page is a folder with an index file
+		if (empty($file) OR ! $file)
+		{
+			$file = Kohana::find_file('guide',$page.'/index','md');
+		}
 
 		return $file;
 	}
 
-	public function section($page)
-	{
-		$markdown = $this->_get_all_menu_markdown();
-		
-		if (preg_match('~\*{2}(.+?)\*{2}[^*]+\[[^\]]+\]\('.preg_quote($page).'\)~mu', $markdown, $matches))
-		{
-			return $matches[1];
-		}
-		
-		return $page;
-	}
-
+	/**
+	 * Find the title of a page in the menu file by looking for the url. Assuming we are looking for "url" and the following is in the menu file: [Name](url) it will return "Name".
+	 * @param  string   the url to find the title of
+	 * @return string   the title of the page
+	 */
 	public function title($page)
 	{
 		$markdown = $this->_get_all_menu_markdown();
@@ -256,6 +278,10 @@ class Controller_Userguide extends Controller_Template {
 		return $page;
 	}
 	
+	/**
+	 * Get all the menu markdown merged together, and make it static so we only have to get it once
+	 * @return  string   the combined markdown of all the menus
+	 */
 	protected function _get_all_menu_markdown()
 	{
 		// Only do this once per request...

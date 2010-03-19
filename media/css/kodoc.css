@@ -71,22 +71,31 @@ ul.breadcrumb { display: block; margin: 0; padding: 0 20px 1em; overflow: auto; 
 	
 #kodoc-menu {
 	float:left;
-	width:188px;
+	width:198px;
 	margin-bottom:40px;
 	border:1px solid #DDDDDD;
-	padding-left:10px;
 	background:#fff;
 }
 
-	#kodoc-menu h3 { font-size: 1.4em; margin: 0; padding: .5em .8em .4em; margin-left:-10px; background:#9CE251; color:#00262F; }
+	/* Kohana and Module headers */
+	#kodoc-menu h3 { font-size: 1.4em; margin: 0; padding: .5em .8em .4em; background:#9CE251; color:#00262F; }
 	
-	#kodoc-menu p { padding: 0; margin: 0; }
+	/* Menus */
+	#kodoc-menu ol,
+	#kodoc-menu ul,
+	#kodoc-menu ul or,
+	#kodoc-menu ol ul { margin:0; padding:0; list-style:none; }
 	
-	#kodoc-menu li {
-		position:relative;
-	}
+	/* Top level menus getting padding on top and bottom */
+	#kodoc-menu>ol,
+	#kodoc-menu>ul { padding-top: 0.6em; padding-bottom:0.6em; padding-left:3px; }
 	
-	/* Expandable section header */
+	/* List Items */
+	#kodoc-menu li { margin: 0; padding-left: 14px; display:block; position:relative; }
+	
+
+	
+	/* Expandable section headers */
 	#kodoc-menu .section {
 		display: block;
 		padding: 0.2em 0;
@@ -94,10 +103,11 @@ ul.breadcrumb { display: block; margin: 0; padding: 0 20px 1em; overflow: auto; 
 		color: #00262F;
 	}
 	
+	/* Section header toggle arrows */
 	#kodoc-menu .section .toggler {
 		position:absolute;
 		top:0;
-		left:-14px;
+		left:0;
 		width:14px;
 		height:19px;
 		background:transparent url('../img/arrow.png') 0 7px no-repeat;
@@ -107,17 +117,6 @@ ul.breadcrumb { display: block; margin: 0; padding: 0 20px 1em; overflow: auto; 
 	#kodoc-menu .section-active .toggler {
 		background-position: 0 -13px;
 	}
-	
-	#kodoc-menu ol,
-	#kodoc-menu ul,
-	#kodoc-menu ul or,
-	#kodoc-menu ol ul { margin:0; padding:0;  padding-left: .5em; list-style:none; }
-	
-	#kodoc-menu>ol,
-	#kodoc-menu>ul { padding-top:.6em; padding-bottom:.6em;}
-	
-	/* List Items */
-	#kodoc-menu li { margin: 0; padding: 0; display:block; }
 	
 #topline {
 	position:relative;

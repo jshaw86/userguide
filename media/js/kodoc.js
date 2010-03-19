@@ -12,7 +12,7 @@ $(document).ready(function()
 	// Toggle menus
 	$('#kodoc-menu li:has(ul)').each(function()
 	{
-		var link = $(this).find(':first');
+		var link = $(this).find('strong:first');
 		var menu = $(this).find('ul:first,ol:first');
 		
 		link.prepend('<div class="toggler"></div>');
@@ -20,18 +20,17 @@ $(document).ready(function()
 		
 		var open  = function()
 		{
-			// togg.html('[ &ndash; ]');
-			menu.stop().slideDown();
+			menu.slideDown();
 			link.addClass('section-active');
 		};
 
 		var close = function()
 		{
-			menu.stop().slideUp();
+			menu.slideUp();
 			link.removeClass('section-active');
 		};
 
-		if (menu.find('a[href="'+ window.location.pathname +'"]').length)
+		if (menu.find('a[href="'+ window.location.pathname +'"]').length || $(this).find('a[href="'+ window.location.pathname +'"]').length)
 		{
 			// Currently active menu
 			link.find('.toggler:first').toggle(close, open);
