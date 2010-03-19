@@ -61,6 +61,22 @@ class Controller_Userguide extends Controller_Template {
 
 		parent::before();
 	}
+	
+	public function action_index()
+	{
+		foreach(Kohana::config('userguide.userguide') as $module => $options)
+		{
+			if ($file = Kohana::find_file('guide', $options['menu'], 'md'))
+			{
+				$module_menus[$module] = Markdown(file_get_contents($file)); 
+			}
+		}
+		
+		$this->template->title = "Userguide";
+		$this->template->content = View::factory('userguide/index',array('modules'=>Kohana::config('userguide.userguide')));
+		$this->template->breadcrumb = array('User Guide');
+		
+	}
 
 	public function action_docs()
 	{
@@ -71,8 +87,8 @@ class Controller_Userguide extends Controller_Template {
 
 		if ( ! $page)
 		{
-			// Redirect to the default page
-			$this->request->redirect($this->guide->uri(array('page' => 'about.kohana')));
+			// Show the index page
+			return $this->action_index();
 		}
 
 		$file = $this->file($page);
@@ -88,21 +104,18 @@ class Controller_Userguide extends Controller_Template {
 
 		// Parse the page contents into the template
 		$this->template->content = Markdown(file_get_contents($file));
-
-		// Attach the menu to the template
-		$this->template->menu = Markdown(file_get_contents($this->file('menu')));
 		
-		// Bind module menu items
-		$this->template->bind('module_menus', $module_menus);
+		// Bind menus
+		$this->template->bind('menu', $menu);
 		
 		// Attach module-specific menu items
-		$module_menus = array();
+		$menu = array();
 		
-		foreach(Kohana::modules() as $module => $path)
+		foreach(Kohana::config('userguide.userguide') as $module => $options)
 		{
-			if ($file = $this->file('menu.'.$module))
+			if ($file = Kohana::find_file('guide', $options['menu'], 'md'))
 			{
-				$module_menus[$module] = Markdown(file_get_contents($file)); 
+				$menu[$module] = Markdown(file_get_contents($file)); 
 			}
 		}
 
@@ -298,9 +311,9 @@ class Controller_Userguide extends Controller_Template {
 			}
 			
 			// Look in module specific files
-			foreach(Kohana::modules() as $module => $path)
+			foreach(Kohana::config('userguide.userguide') as $module => $options)
 			{
-				if ($file = $this->file('menu.'.$module) AND $text = file_get_contents($file))
+				if ($file = Kohana::find_file('guide',$options['menu'],'md') AND $text = file_get_contents($file))
 				{
 					// Concatenate markdown to produce one string containing all menu items
 					$markdown .="\n".$text;

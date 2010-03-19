@@ -4,5 +4,8 @@ return array
 (
 	// Default the userguide language.
 	'lang'		=> 'en-us',
+	
+	// Provide an empty array of userguides
+	'userguide' => array(),
 );
 

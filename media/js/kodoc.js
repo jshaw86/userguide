@@ -9,7 +9,7 @@ $(document).ready(function()
 	// Striped tables
 	$('#kodoc-content tbody tr:even').addClass('alt');
 
-	// Toggle menus
+	// Toggle sub menus
 	$('#kodoc-menu li:has(ul)').each(function()
 	{
 		var link = $(this).find('strong:first');
