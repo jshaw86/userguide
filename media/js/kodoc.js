@@ -12,7 +12,7 @@ $(document).ready(function()
 	// Toggle sub menus
 	$('#kodoc-menu li:has(ul)').each(function()
 	{
-		var link = $(this).find('strong:first');
+		var link = $(this).find(':first');
 		var menu = $(this).find('ul:first,ol:first');
 		
 		link.prepend('<div class="toggler"></div>');
@@ -62,4 +62,11 @@ $(document).ready(function()
 		})
 		.appendTo(header);
 	});
+	
+	// "Link to" headers
+	$('#kodoc-content')
+		.children('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]')
+		.append(function(index, html){
+			return '<a href="#' + $(this).attr('id') + '" class="heading-link">Link to this</a>';
+		});
 });

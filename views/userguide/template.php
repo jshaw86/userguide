@@ -24,16 +24,7 @@
 
 <div id="header">
 	<div class="container">
-		<?php echo HTML::anchor('/', HTML::image('media/img/kohana.png', array('alt' => 'Kohana: Develop Swiftly')), array('id' => 'logo')) ?>
-		<div id="menu">
-			<ul>
-				<?php
-				$select = '';
-				?>
-				<li class="first<?php echo $select == 'home'?' selected':''?>"><?php echo HTML::anchor('/','User Guide') ?></li>
-				<li class="last<?php echo $select == 'development'?' selected':''?>"><?php echo HTML::anchor('/api','Reference') ?></li>
-			</ul>
-		</div>
+		<?php echo HTML::anchor(Route::get('docs/guide')->uri(), HTML::image(Route::get('docs/media')->uri(array('file'=>'/img/kohana.png')), array('alt' => 'Kohana: Develop Swiftly')), array('id' => 'logo')) ?>
 <?php /*
 		<div class="translations span-6 last">
 			<?php echo form::open(NULL, array('method' => 'get')) ?>
@@ -71,9 +62,7 @@
 			</div>
 		
 			<div id="kodoc-menu">
-				<?php if (isset($menu) AND ! empty($menu)) : ?>
-					<?php echo implode("\n", $menu) ?>
-				<?php endif; ?>
+				<?php echo $menu ?>
 			</div>
 		</div>
 	</div>

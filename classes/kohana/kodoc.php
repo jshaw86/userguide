@@ -185,6 +185,11 @@ class Kohana_Kodoc {
 							$text = HTML::anchor(Route::get('docs/api')->uri(array('class' => $matches[1])).'#'.$matches[2], $text);
 						}
 					break;
+					// skip this item, go to the next in the for loop
+					case 'ignore':
+						continue 2;
+					
+					break;
 				}
 
 				// Add the tag

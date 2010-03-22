@@ -45,7 +45,14 @@ ul.breadcrumb { display: block; margin: 0; padding: 0 20px 1em; overflow: auto; 
 #kodoc-content h3 small,
 #kodoc-content h4 small,
 #kodoc-content h5 small,
-#kodoc-content h6 small { font-size: 0.9em; font-weight: normal; color: #444; }
+#kodoc-content h6 small { font-size: 0.8em; font-weight: normal; color: #444; }
+#kodoc-content a.heading-link {font-size: 0.8em; float:right; display: none; margin-top:-4px;}
+#kodoc-content h1:hover a.heading-link,
+#kodoc-content h2:hover a.heading-link,
+#kodoc-content h3:hover a.heading-link,
+#kodoc-content h4:hover a.heading-link,
+#kodoc-content h5:hover a.heading-link,
+#kodoc-content h6:hover a.heading-link {display: block;}
 #kodoc-content pre { font-size: 1em; line-height: 1.4em; border:1px dashed #24933B; background:#F7F7F7; padding:8px; }
 #kodoc-content pre,
 #kodoc-content code { color:#186027; }
@@ -62,7 +69,7 @@ ul.breadcrumb { display: block; margin: 0; padding: 0 20px 1em; overflow: auto; 
 #kodoc-content div.method,
 #kodoc-content div.properties,
 #kodoc-content div.constants { margin-bottom: 1em; }
-	#kodoc-content div.method h3 .param { font-weight: normal; cursor: help; }
+	#kodoc-content div.method h3 .param { font-weight: normal; cursor: help; border-bottom:1px dashed #666666;}
 	#kodoc-content div.method h3 abbr.param { text-transform: none; font-size: 1em; }
 #kodoc-content p.note { display: block; padding: 0.4em 0.6em; background: #eee; color: #444; font-size: 0.9em; border: solid 1px #eee; }
 #kodoc-content dl.tags { overflow: auto; background: #eee; padding: 1em; border: solid 6px #ddd; }
@@ -83,39 +90,50 @@ ul.breadcrumb { display: block; margin: 0; padding: 0 20px 1em; overflow: auto; 
 	/* Menus */
 	#kodoc-menu ol,
 	#kodoc-menu ul,
-	#kodoc-menu ul or,
+	#kodoc-menu ol ol,
+	#kodoc-menu ul ul,
+	#kodoc-menu ul ol,
 	#kodoc-menu ol ul { margin:0; padding:0; list-style:none; }
+	
+	#kodoc-menu ol ol,
+	#kodoc-menu ul ul,
+	#kodoc-menu ul ol,
+	#kodoc-menu ol ul { margin-left:14px }
 	
 	/* Top level menus getting padding on top and bottom */
 	#kodoc-menu>ol,
 	#kodoc-menu>ul { padding-top: 0.6em; padding-bottom:0.6em; padding-left:3px; }
 	
 	/* List Items */
-	#kodoc-menu li { margin: 0; padding-left: 14px; display:block; position:relative; }
+	#kodoc-menu li { margin: 0; display:block; position:relative; }
 	
-
+	/* Links */
+	#kodoc-menu li a, #kodoc-menu li strong {
+		padding-left: 14px;
+		background:transparent url('../img/arrow.png') -40px 0 no-repeat;
+	}
 	
 	/* Expandable section headers */
 	#kodoc-menu .section {
 		display: block;
-		padding: 0.2em 0;
+		padding: 0.2em 0 0 14px;
 		font-weight: bold;
 		color: #00262F;
+		background-position: -20px -20px; 
 	}
 	
-	/* Section header toggle arrows */
+	#kodoc-menu .section-active {
+		background-position: 0 -40px;
+	}
+	
+	/* Toggle button */
 	#kodoc-menu .section .toggler {
 		position:absolute;
 		top:0;
 		left:0;
 		width:14px;
 		height:19px;
-		background:transparent url('../img/arrow.png') 0 7px no-repeat;
 		cursor:pointer;
-	}
-	
-	#kodoc-menu .section-active .toggler {
-		background-position: 0 -13px;
 	}
 	
 #topline {

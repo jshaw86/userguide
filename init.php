@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 // Static file serving (CSS, JS, images)
-Route::set('docs/media', 'media(/<file>)', array('file' => '.+'))
+Route::set('docs/media', 'guide/media(/<file>)', array('file' => '.+'))
 	->defaults(array(
 		'controller' => 'userguide',
 		'action'     => 'media',
@@ -9,7 +9,7 @@ Route::set('docs/media', 'media(/<file>)', array('file' => '.+'))
 	));
 
 // API Browser
-Route::set('docs/api', 'api(/<class>)', array('class' => '[a-zA-Z0-9_]+'))
+Route::set('docs/api', 'guide/api(/<class>)', array('class' => '[a-zA-Z0-9_]+'))
 	->defaults(array(
 		'controller' => 'userguide',
 		'action'     => 'api',
@@ -17,11 +17,11 @@ Route::set('docs/api', 'api(/<class>)', array('class' => '[a-zA-Z0-9_]+'))
 	));
 
 // Translated user guide
-Route::set('docs/guide', '(<page>)', array(
+Route::set('docs/guide', 'guide(/<module>(/<page>))', array(
 		'page' => '.+',
 	))
 	->defaults(array(
 		'controller' => 'userguide',
 		'action'     => 'docs',
+		'module'     => '',
 	));
-
