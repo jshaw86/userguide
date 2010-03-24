@@ -39,38 +39,100 @@ class Kohana_Kodoc {
 
 			$link = HTML::anchor($route->uri(array('class' => $class->class->name)), $class->class->name);
 
-			if (isset($class->tags['package']))
+			// Find the category, use the package if no category specified
+			if (isset($class->tags['category']))
 			{
-				foreach ($class->tags['package'] as $package)
-				{
-					$menu[$package][] = $link;
-				}
+				// Only get the first if there are several
+				$category = current($class->tags['category']);
+			}
+			else if (isset($class->tags['package']))
+			{
+				// Only get the first if there are several
+				$category = current($class->tags['package']);
 			}
 			else
 			{
-				$menu['Kohana'][] = $link;
+				$category = "[No Package or Category]";
 			}
+
+			// If the category has a /, we need to do some nesting for the sub category
+			if (strpos($category,'/'))
+			{
+				// First, loop through each piece and make sure that array exists
+				$path =& $menu;
+				foreach (explode('/',$category) as $piece)
+				{
+					// If this array doesn't exists, create it
+					if ( ! isset($path[$piece]))
+					{
+						$path[$piece] = array('__NAME' => $piece);
+					}
+					$path =& $path[$piece];
+				}
+				
+				// And finally, add this link to that subcategory
+				$path[] = $link;
+			}
+			else
+			{
+				// Just add this class to that category
+				$menu[$category][] = $link;
+			}
+
 		}
 
-		// Sort the packages
+		// Return the output of _menu_print()
 		ksort($menu);
-
+		return self::_menu_print($menu);
+	}
+	
+	protected static function _menu_print($list)
+	{
+		// Begin the output!
 		$output = array('<ol>');
 
-		foreach ($menu as $package => $list)
+		foreach ($list as $key => $value)
 		{
-			// Sort the class list
-			sort($list);
-
-			$output[] =
-				"<li><strong>$package</strong>\n\t<ul><li>".
-				implode("</li><li>", $list).
-				"</li></ul>\n</li>";
+			// If this key is the name for this subcategory, skip it. (This is used for sorting)
+			if  ($key === '__NAME')
+				continue;
+			
+			// If $value is an array, than this is a category
+			if (is_array($value))
+			{
+				// Sort the things in this category, according to self::sortcategory
+				uasort($value,array(__CLASS__,'sortcategory'));
+				
+				// Add this categories contents to the output
+				$output[] = "<li><strong>$key</strong>".self::_menu_print($value).'</li>';
+			}
+			// Otherwise, this is just a normal element, just print it.
+			else
+			{
+				$output[] = "<li>$value</li>";
+			}
 		}
 
 		$output[] = '</ol>';
 
 		return implode("\n", $output);
+	}
+	
+	public static function sortcategory($a,$b)
+	{
+		// If only one is an array (category), put that one before strings (class)
+		if (is_array($a) AND ! is_array($b))
+			return -1;
+		elseif (! is_array($a) AND is_array($b))
+			return 1;
+		
+		// If they are both arrays, use strcmp on the __Name key
+		elseif (is_array($a) AND is_array($b))
+			return strcmp($a['__NAME'],$b['__NAME']);
+		
+		// This means they are both strings, so compare the strings
+		else
+			return strcmp($a,$b);
 	}
 
 	public static function classes(array $list = NULL)

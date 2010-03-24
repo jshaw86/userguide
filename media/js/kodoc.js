@@ -10,7 +10,7 @@ $(document).ready(function()
 	$('#kodoc-content tbody tr:even').addClass('alt');
 
 	// Toggle sub menus
-	$('#kodoc-menu li:has(ul)').each(function()
+	$('#kodoc-menu li:has(ul), #kodoc-menu li:has(ol)').each(function()
 	{
 		var link = $(this).find(':first');
 		var menu = $(this).find('ul:first,ol:first');
