@@ -14,7 +14,7 @@
 
 <?php if ($doc->params): ?>
 <?php //if (false): ?>
-<h5>Parameters</h5>
+<h5>Parameters:</h5>
 <table>
 <tr>
 	<th>Parameter</th>

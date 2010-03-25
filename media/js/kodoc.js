@@ -6,6 +6,21 @@ $(document).ready(function()
 		$(this).parents('form').submit();
 	});
 
+	// Syntax highlighter
+	
+	$('.method pre code').each(function(){
+		$(this).addClass('brush: php');
+	});
+
+	$('.description pre code').each(function(){
+		$(this).addClass('brush: php');
+	});
+
+	SyntaxHighlighter.config.tagName = 'code';
+	SyntaxHighlighter.defaults.toolbar = false;
+	SyntaxHighlighter.defaults.gutter = false;
+	SyntaxHighlighter.all();
+
 	// Striped tables
 	$('#kodoc-content tbody tr:odd').addClass('alt');
 

@@ -66,7 +66,7 @@ table td { background: #f4f4f4; }
 #kodoc-content h4:hover a.heading-link,
 #kodoc-content h5:hover a.heading-link,
 #kodoc-content h6:hover a.heading-link {display: block;}
-#kodoc-content pre { font-size: 1em; line-height: 1.4em; border:1px dashed #24933B; background:#F7F7F7; padding:8px; }
+#kodoc-content pre { font-size: 1em; line-height: 1.4em; border:1px dashed #24933B; background:#f7f7f7; padding:8px; }
 #kodoc-content pre,
 #kodoc-content code { color:#186027; }
 
