@@ -1,0 +1,55 @@
+#topline {
+	position:relative;
+	width: 100%;
+	min-width:950px;
+	height:25px;
+	margin:0;
+	padding:0;
+	overflow: hidden;
+	background-color: #00262f;
+	color: #F1F8DB;
+	text-align:center;
+}
+	#topline #quicklinks {
+		position:relative;
+		float:left; /* float:left makes the width of this element the width of its contents */
+		left:50%; /* left side of this element will be half way across the page */
+		margin:0;
+		padding:0;
+		list-style-type:none;
+	}
+		#topline #quicklinks li {
+			position:relative;
+			float:left;
+			left:-50%; /* Move these elements to the left by 50% of the ul's width */
+			margin:0;
+			padding:6px 10px 6px 11px;
+			background:transparent url('../img/topline-divider.png') center left no-repeat;
+		}
+			#topline #quicklinks li a {
+				padding:0;
+				margin:0;
+				float:left;
+				color:#F1F8DB;
+				font-weight:bold;
+				text-decoration: none;
+				height:13px;
+				font-size:13px; /* I know using px is bad form, but this is just so its consistent wherever its used, it also means this bar won't resize in old browsers, which is actually kinda nice */
+			}
+		/* Kohana logo in the top bar */
+		#topline #quicklinks li.first {
+			padding-top:7px;
+			padding-bottom:5px;
+			background:none;
+		}
+			#topline #quicklinks li.first a { width:59px; height:13px; background: transparent url('../img/kohana-small.png') 0 0 no-repeat; }
+			#topline #quicklinks li.first.active a,
+			#topline #quicklinks li.first a:hover { background-position:0 -20px; }
+
+		#topline #quicklinks li.active a {
+			color:#ED900E;
+		}
+
+			#topline #quicklinks li a:hover {
+				color:#ED900E;
+			}

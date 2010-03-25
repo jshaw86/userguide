@@ -1,37 +1,56 @@
 html { margin: 0; }
-body { margin: 0; background: #00262F; }
+body { margin: 0; background: #F1F8DB; }
 pre { background: #eee; padding: 0.4em; border: dotted 1px #ddd; overflow: auto; }
-table th { color: #444; background: #eee; }
+table th { color: #333; background: #e8e8e8; }
 table td { background: #f4f4f4; }
 	table tr.alt td { background: #fff; }
 
+#header,
+#content,
+#footer { float: left; clear: both; width: 100%; }
+
+.container {
+	width:950px;
+	margin:0px auto;
+	position:relative;
+}
+
 .container .toggle { font-size: 0.7em; float: right; padding: 0 1em; cursor: pointer; color: #777; text-decoration: none; }
 
-ul.breadcrumb { display: block; margin: 0; padding:.4em; overflow: auto; }
-	ul.breadcrumb li { display: block; float: left; margin: 0; padding: 0; padding-left: 0.4em; font-size:1.6em; font-weight:bold; }
-	ul.breadcrumb li:before { content: '» '; color: #595959; }
-		ul.breadcrumb li a { color: #00262F; text-decoration: underline; }
-			ul.breadcrumb li a:hover { color:#1F6D5B; }
+#header {
+	padding:0;
+	background:#77c244 url('../img/header.png') center top repeat-x;
+	margin-bottom:10px;
+	border-bottom:1px solid #0D6D22;
+}
+	#header .container {
+		padding:10px 0;
+	}
 
-#footer { padding: 2em 0 1em; background:#00262F; color: #405C63; }
-	#footer p { font-size: 0.8em; text-transform: uppercase; }
-	#footer .copyright { text-align: right; }
+	ul.breadcrumb { display: block; margin: 0; padding:.3em 0; overflow: auto; }
+		ul.breadcrumb li { display: block; float: left; margin: 0; padding: 0; padding-left: 0.4em; font-size:1.6em; font-weight:bold; }
+		ul.breadcrumb li:before { content: '» '; color: #595959; }
+			ul.breadcrumb li a { color: #00262F; text-decoration: underline; }
+				ul.breadcrumb li a:hover { color:#1F6D5B; }
+
+	#content hr { margin: 1em 0 1em; background-color: #D2DDA8; }
 	
-	
+	#content a { color: #004352; }
+	#content a:hover { color: #FF9900; }
+	#content a:active { text-decoration: none; }
+
 #kodoc-content {
-	border:1px solid #DDDDDD;
-	margin-left:20px;
-	padding-left:19px;
+	float:left;
+	width:690px;
+	margin-bottom:20px;
 	margin-right:20px;
+	padding-left:19px;
 	padding-right:19px;
 	background:white;
-	margin-bottom:20px;
-	width:650px;
-	float:left;
 }
 	
-#kodoc-content h1 { margin-left: -19px;margin-right:-19px; padding: 0.4em 19px; margin-top: 0;  background: #9CE251;  color: #113C32; }
-#kodoc-content h2 { margin-left: -19px;margin-right:-19px; padding: 0.4em 19px; background: #E3EDC4; color:#245B35; }
+#kodoc-content h1 { margin: 0 -20px .7em; padding: 0.4em 20px; background: #9CE251; color: #113C32; }
+#kodoc-content h2 { margin: 0 -20px 0.535em; padding: 0.4em 20px; background: #E3EDC4; color:#245B35; }
 #kodoc-content h3 { margin-left:-8px; margin-right:-8px; padding: 0.4em 8px; background: #F1F8DB; color:#245B35; }
 #kodoc-content h4 { border-bottom:1px solid #ccc; }
 #kodoc-content h1 small,
@@ -69,12 +88,12 @@ ul.breadcrumb { display: block; margin: 0; padding:.4em; overflow: auto; }
 #kodoc-content dl.tags { overflow: auto; background: #eee; padding: 1em; border: solid 6px #ddd; }
 	#kodoc-content dl.tags dt { margin: 0 0 0.4em; clear: both; float: left; width: 25%; }
 	#kodoc-content dl.tags dd { margin: 0; padding: 0; clear: right; float: right; }
+
 	
 #kodoc-menu {
 	float:left;
-	width:198px;
+	width:200px;
 	margin-bottom:40px;
-	border:1px solid #DDDDDD;
 	background:#fff;
 }
 
@@ -84,7 +103,7 @@ ul.breadcrumb { display: block; margin: 0; padding:.4em; overflow: auto; }
 	/* Header for constants, properties, methods headers */
 	#kodoc-menu #class-menu h4 { font-size: 1.2em; margin: 0.6em 0.4em 0; padding: .3em .6em .2em; background:#F1F8DB; color:#245B35; }
 	#kodoc-menu #class-menu ul { margin-left:10px; margin-bottom:0.3em; }
-	#kodoc-menu #class-menu ul li { padding 0.1em 0; }
+	#kodoc-menu #class-menu ul li { padding: 0.1em 0; }
 	#kodoc-menu #class-menu ul a { padding-left:0; background:none; }
 	
 	/* Menus */
@@ -136,58 +155,22 @@ ul.breadcrumb { display: block; margin: 0; padding:.4em; overflow: auto; }
 		cursor:pointer;
 	}
 	
-#topline {
-	position:relative;
-	width: 100%;
-	min-width:950px;
-	height:25px;
-	margin:0;
-	padding:0;
-	overflow: hidden;
-	background-color: #00262f;
-	color: #F1F8DB;
-	text-align:center;
+#footer p { font-size: 0.8em; text-transform: uppercase; }
+#footer .copyright { text-align: right; }
+	
+#footer {
+	padding: 1em 0;
+	color: #666;
+	font-size: 0.9em;
 }
-	#topline #quicklinks {
-		position:relative;
-		float:left; /* float:left makes the width of this element the width of its contents */
-		left:50%; /* left side of this element will be half way across the page */
-		margin:0;
-		padding:0;
-		list-style-type:none;
+
+	#footer a {
+		color: #999;
+		text-decoration:underline;
 	}
-		#topline #quicklinks li {
-			position:relative;
-			float:left;
-			left:-50%; /* Move these elements to the left by 50% of the ul's width */
-			margin:0;
-			padding:6px 10px 6px 11px;
-			background:transparent url('../img/topline-divider.png') center left no-repeat;
-		}
-			#topline #quicklinks li a {
-				padding:0;
-				margin:0;
-				float:left;
-				color:#F1F8DB;
-				font-weight:bold;
-				text-decoration: none;
-				height:13px;
-				font-size:13px; /* I know using px is bad form, but this is just so its consistent wherever its used, it also means this bar won't resize in old browsers, which is actually kinda nice */
-			}
-		/* Kohana logo in the top bar */
-		#topline #quicklinks li.first {
-			padding-top:7px;
-			padding-bottom:5px;
-			background:none;
-		}
-			#topline #quicklinks li.first a { width:59px; height:13px; background: transparent url('../img/kohana-small.png') 0 0 no-repeat; }
-			#topline #quicklinks li.first.active a,
-			#topline #quicklinks li.first a:hover { background-position:0 -20px; }
-
-		#topline #quicklinks li.active a {
-			color:#ED900E;
-		}
-
-			#topline #quicklinks li a:hover {
-				color:#ED900E;
-			}
+	#footer a:hover {
+		text-decoration:none;
+	}
+	#footer .copyright {
+		color: #aaa;
+	}

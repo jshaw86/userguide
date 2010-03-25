@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Class documentation generator.
+ * Documentation generator.
  *
  * @package    Userguide
  * @author     Kohana Team
@@ -11,9 +11,14 @@ class Kohana_Kodoc {
 
 	public static function factory($class)
 	{
-		return new Kodoc($class);
+		return new Kodoc_Class($class);
 	}
 
+	/**
+	 * Creates an html list of all classes sorted by category (or package if no category)
+	 *
+	 * @return   string   the html for the menu
+	 */
 	public static function menu()
 	{
 		$classes = Kodoc::classes();
@@ -82,9 +87,15 @@ class Kohana_Kodoc {
 
 		// Return the output of _menu_print()
 		ksort($menu);
-		return self::_menu_print($menu);
+		return "<h3>API Browser</h3>\n".self::_menu_print($menu);
 	}
 	
+	/**
+	 * This method takes the array built by self::menu and turns it into html
+	 *
+	 * @param   array   an array of categories and/or classes
+	 * @return  string  the html
+	 */
 	protected static function _menu_print($list)
 	{
 		// Begin the output!
@@ -100,7 +111,7 @@ class Kohana_Kodoc {
 			if (is_array($value))
 			{
 				// Sort the things in this category, according to self::sortcategory
-				uasort($value,array(__CLASS__,'sortcategory'));
+				uasort($value,array(__CLASS__,'sort_category'));
 				
 				// Add this categories contents to the output
 				$output[] = "<li><strong>$key</strong>".self::_menu_print($value).'</li>';
@@ -117,7 +128,11 @@ class Kohana_Kodoc {
 		return implode("\n", $output);
 	}
 	
-	public static function sortcategory($a,$b)
+	/**
+	 * This function is used by self::_menu_print to organize the array, so that categories (arrays) are first then the classes.
+	 *
+	 */
+	public static function sort_category($a,$b)
 	{
 		// If only one is an array (category), put that one before strings (class)
 		if (is_array($a) AND ! is_array($b))
@@ -134,6 +149,14 @@ class Kohana_Kodoc {
 			return strcmp($a,$b);
 	}
 
+	/**
+	 * Returns an array of all the classes available, built by listing all files in the classes folder and then trying to create that class.
+	 * 
+	 * This means any empty class files (as in complety empty) will cause an exception
+	 *
+	 * @param   array   array of files, obtained using Kohana::list_files
+	 * @return   array   an array of all the class names
+	 */
 	public static function classes(array $list = NULL)
 	{
 		if ($list === NULL)
@@ -164,6 +187,14 @@ class Kohana_Kodoc {
 		return $classes;
 	}
 
+	/**
+	 * Get all classes and methods.  Used on index page.
+	 *
+	 * >  I personally don't the current index page, but this could be useful for namespacing/packaging
+	 * >  For example:  class_methods( Kohana::list_files('classes/sprig') ) could make a nice index page for the sprig package in the api browser
+	 * >     ~bluehawk
+	 *
+	 */
 	public static function class_methods(array $list = NULL)
 	{
 		$list = Kodoc::classes($list);
@@ -195,6 +226,12 @@ class Kohana_Kodoc {
 		return $classes;
 	}
 
+	/**
+	 * Parse a comment to extract the description and the tags
+	 *
+	 * @param   string  the comment retreived using ReflectionClass->getDocComment()
+	 * @return  array   array(string $description, array $tags)
+	 */
 	public static function parse($comment)
 	{
 		// Normalize all new lines to \n
@@ -237,7 +274,14 @@ class Kohana_Kodoc {
 						}
 					break;
 					case 'throws':
-						$text = HTML::anchor(Route::get('docs/api')->uri(array('class' => $text)), $text);
+						if (preg_match('/^(\w+)\W(.*)$/',$text,$matches))
+						{
+							$text = HTML::anchor(Route::get('docs/api')->uri(array('class' => $matches[1])), $matches[1]).' '.$matches[2];
+						}
+						else
+						{
+							$text = HTML::anchor(Route::get('docs/api')->uri(array('class' => $text)), $text);
+						}
 					break;
 					case 'uses':
 						if (preg_match('/^([a-z_]+)::([a-z_]+)$/i', $text, $matches))
@@ -246,6 +290,9 @@ class Kohana_Kodoc {
 							$text = HTML::anchor(Route::get('docs/api')->uri(array('class' => $matches[1])).'#'.$matches[2], $text);
 						}
 					break;
+					// don't show @access lines, cause they are redundant
+					case 'access':
+					continue 2;
 				}
 
 				// Add the tag
@@ -268,6 +315,13 @@ class Kohana_Kodoc {
 		return array($comment, $tags);
 	}
 
+	/**
+	 * Get the source of a function
+	 *
+	 * @param  string   the filename
+	 * @param  int      start line?
+	 * @param  int      end line?
+	 */
 	public static function source($file, $start, $end)
 	{
 		if ( ! $file)
@@ -290,81 +344,6 @@ class Kohana_Kodoc {
 		}
 
 		return implode("\n", $file);
-	}
-
-	public $class;
-
-	public $modifiers;
-
-	public $description;
-
-	public $tags = array();
-
-	public $constants = array();
-
-	public function __construct($class)
-	{
-		$this->class = $parent = new ReflectionClass($class);
-
-		if ($modifiers = $this->class->getModifiers())
-		{
-			$this->modifiers = '<small>'.implode(' ', Reflection::getModifierNames($modifiers)).'</small> ';
-		}
-
-		if ($constants = $this->class->getConstants())
-		{
-			foreach ($constants as $name => $value)
-			{
-				$this->constants[$name] = Kohana::debug($value);
-			}
-		}
-
-		do
-		{
-			if ($comment = $parent->getDocComment())
-			{
-				// Found a description for this class
-				break;
-			}
-		}
-		while ($parent = $parent->getParentClass());
-
-		list($this->description, $this->tags) = Kodoc::parse($comment);
-	}
-
-	public function properties()
-	{
-		$props = $this->class->getProperties();
-
-		sort($props);
-
-		foreach ($props as $key => $property)
-		{
-			if ($property->isPublic())
-			{
-				$props[$key] = new Kodoc_Property($this->class->name, $property->name);
-			}
-			else
-			{
-				unset($props[$key]);
-			}
-		}
-
-		return $props;
-	}
-
-	public function methods()
-	{
-		$methods = $this->class->getMethods();
-
-		sort($methods);
-
-		foreach ($methods as $key => $method)
-		{
-			$methods[$key] = new Kodoc_Method($this->class->name, $method->name);
-		}
-
-		return $methods;
 	}
 
 } // End Kodoc
