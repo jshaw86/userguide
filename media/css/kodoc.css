@@ -7,17 +7,11 @@ table td { background: #f4f4f4; }
 
 .container .toggle { font-size: 0.7em; float: right; padding: 0 1em; cursor: pointer; color: #777; text-decoration: none; }
 
-.header {
-	clear:both;
-	padding:1em 0 2em;
-	background:#77c244 url('../img/header.png') center top repeat-x;
-}
-
-ul.breadcrumb { display: block; margin: 0; padding: 0 20px 1em; overflow: auto; }
-	ul.breadcrumb li { display: block; float: left; margin: 0; padding: 0; padding-left: 0.5em; }
-	ul.breadcrumb li:before { content: '» '; color: #666666; }
-		ul.breadcrumb li a { color: #333; text-decoration: underline; }
-			ul.breadcrumb li a:hover { color:#666; }
+ul.breadcrumb { display: block; margin: 0; padding:.4em; overflow: auto; }
+	ul.breadcrumb li { display: block; float: left; margin: 0; padding: 0; padding-left: 0.4em; font-size:1.6em; font-weight:bold; }
+	ul.breadcrumb li:before { content: '» '; color: #595959; }
+		ul.breadcrumb li a { color: #00262F; text-decoration: underline; }
+			ul.breadcrumb li a:hover { color:#1F6D5B; }
 
 #footer { padding: 2em 0 1em; background:#00262F; color: #405C63; }
 	#footer p { font-size: 0.8em; text-transform: uppercase; }
@@ -87,6 +81,12 @@ ul.breadcrumb { display: block; margin: 0; padding: 0 20px 1em; overflow: auto; 
 	/* Kohana and Module headers */
 	#kodoc-menu h3 { font-size: 1.4em; margin: 0; padding: .5em .8em .4em; background:#9CE251; color:#00262F; }
 	
+	/* Header for constants, properties, methods headers */
+	#kodoc-menu #class-menu h4 { font-size: 1.2em; margin: 0.6em 0.4em 0; padding: .3em .6em .2em; background:#F1F8DB; color:#245B35; }
+	#kodoc-menu #class-menu ul { margin-left:10px; margin-bottom:0.3em; }
+	#kodoc-menu #class-menu ul li { padding 0.1em 0; }
+	#kodoc-menu #class-menu ul a { padding-left:0; background:none; }
+	
 	/* Menus */
 	#kodoc-menu ol,
 	#kodoc-menu ul,
@@ -116,7 +116,7 @@ ul.breadcrumb { display: block; margin: 0; padding: 0 20px 1em; overflow: auto; 
 	/* Expandable section headers */
 	#kodoc-menu .section {
 		display: block;
-		padding: 0.2em 0 0 14px;
+		padding: 0.1em 0 0 14px;
 		font-weight: bold;
 		color: #00262F;
 		background-position: -20px -20px; 

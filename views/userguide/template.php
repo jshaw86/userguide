@@ -24,39 +24,17 @@
 
 <div id="header">
 	<div class="container">
-		<?php echo HTML::anchor(Route::get('docs/guide')->uri(), HTML::image(Route::get('docs/media')->uri(array('file'=>'/img/kohana.png')), array('alt' => 'Kohana: Develop Swiftly')), array('id' => 'logo')) ?>
-<?php /*
-		<div class="translations span-6 last">
-			<?php echo form::open(NULL, array('method' => 'get')) ?>
-				<?php echo form::select('lang', $translations, I18n::$lang) ?>
-			<?php echo form::close() ?>
-		</div>
-		
-		<?php if (count(Kohana::config('kohana')->languages) > 1): ?>
-		<div id="languages">
-			<ul>
-				<?php
-				foreach (Kohana::config('kohana')->languages as $lang => $inf)
-				{
-					$active = ($lang == $request->param('lang'))?' class="active"':'';
-					echo '<li'.$active.'>'.HTML::anchor(Route::get('page')->uri(array('lang'=>$lang, 'action'=>$request->action)), HTML::image('media/img/flags/'.$inf['flag'].'.png',array('alt'=>$inf['name'], 'title'=>$inf['name']))).'</li>';
-				}
-				?>
-			</ul>
-		</div>
-		<?php endif; ?>
-*/ ?>
+		<ul class="breadcrumb">
+		<?php foreach ($breadcrumb as $link => $title): ?>
+			<li><?php echo is_int($link) ? $title : HTML::anchor($link, $title) ?></li>
+		<?php endforeach ?>
+		</ul>
 	</div>
 </div>
 
 <div id="content">
 	<div class="wrapper">
 		<div id="docs" class="container">
-			<ul class="breadcrumb">
-			<?php foreach ($breadcrumb as $link => $title): ?>
-				<li><?php echo is_int($link) ? $title : HTML::anchor($link, $title) ?></li>
-			<?php endforeach ?>
-			</ul>
 			<div id="kodoc-content">
 				<?php echo $content ?>
 			</div>

@@ -23,6 +23,9 @@ class Controller_Userguide extends Controller_Template {
 		}
 		else
 		{
+			// Disable eAccelerator, it messes with	the ReflectionClass->getDocComments() calls
+            ini_set('eaccelerator.enable',0);
+
 			// Grab the necessary routes
 			$this->media = Route::get('docs/media');
 			$this->api   = Route::get('docs/api');
@@ -160,11 +163,15 @@ class Controller_Userguide extends Controller_Template {
 
 		if ($class)
 		{
+			$_class = Kodoc::factory($class);
+			
 			$this->template->title = $class;
 
 			$this->template->content = View::factory('userguide/api/class')
-				->set('doc', Kodoc::factory($class))
+				->set('doc', $_class)
 				->set('route', $this->request->route);
+
+			$this->template->menu = Kodoc::menu() . View::factory('userguide/api/menu',array('doc'=>$_class));
 		}
 		else
 		{
@@ -173,10 +180,12 @@ class Controller_Userguide extends Controller_Template {
 			$this->template->content = View::factory('userguide/api/toc')
 				->set('classes', Kodoc::class_methods())
 				->set('route', $this->request->route);
+
+			$this->template->menu = Kodoc::menu();
 		}
 
 		// Attach the menu to the template
-		$this->template->menu = Kodoc::menu();
+		
 
 		// Bind the breadcrumb
 		$this->template->bind('breadcrumb', $breadcrumb);
