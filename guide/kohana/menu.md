@@ -1,4 +1,4 @@
-### [Kohana 3](/)
+### [Kohana 3]()
 
 1. [Getting Started](start)
    - [Conventions and Style](start/conventions)
