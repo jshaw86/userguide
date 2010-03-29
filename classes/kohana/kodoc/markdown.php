@@ -157,13 +157,13 @@ class Kohana_Kodoc_Markdown extends MarkdownExtra_Parser {
 	 * @return  string
 	 */
 	public function doBaseURL($text)
-	{	
-		return preg_replace_callback('~(?!!)\[(.+?)\]\(([^#]\S*(?:\s*".+?")?)\)~', array($this, '_add_base_url'), $text);
+	{
+		return preg_replace_callback('~(?!!)\[(.+?)\]\(((?!#)\S*(?:\s*".+?")?)\)~', array($this, '_add_base_url'), $text);
 	}
 
 	public function _add_base_url($matches)
 	{
-		if ($matches[2] AND strpos($matches[2], '://') === FALSE)
+		if (strpos($matches[2], '://') === FALSE)
 		{
 			// Add the base url to the link URL
 			$matches[2] = Kodoc_Markdown::$base_url.$matches[2];

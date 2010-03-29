@@ -57,8 +57,8 @@ class Controller_Userguide extends Controller_Template {
 			require Kohana::find_file('vendor', 'markdown/markdown');
 
 			// Set the base URL for links and images
-			Kodoc_Markdown::$base_url  = preg_replace('#//#','/',URL::site($this->guide->uri(array('module'=>$this->request->param('module')))).'/');
-			Kodoc_Markdown::$image_url = preg_replace('#//#','/',URL::site($this->media->uri(array('file'=>$this->request->param('module')))).'/');
+			Kodoc_Markdown::$base_url  = preg_replace('#//#','/',URL::site($this->guide->uri(array('module' => $this->request->param('module')))).'/');
+			Kodoc_Markdown::$image_url = preg_replace('#//#','/',URL::site($this->media->uri(array('file' => $this->request->param('module')))).'/');
 		}
 
 		parent::before();
@@ -69,8 +69,8 @@ class Controller_Userguide extends Controller_Template {
 	{
 		$this->template->title = "Userguide";
 		$this->template->breadcrumb = array('User Guide');
-		$this->template->content = View::factory('userguide/index',array('modules'=>Kohana::config('userguide.userguide')));
-		$this->template->menu = View::factory('userguide/menu',array('modules'=>Kohana::config('userguide.userguide')));
+		$this->template->content = View::factory('userguide/index', array('modules' => Kohana::config('userguide.userguide')));
+		$this->template->menu = View::factory('userguide/menu', array('modules' => Kohana::config('userguide.userguide')));
 	}
 	
 	// Display an error if a page isn't found
@@ -92,8 +92,8 @@ class Controller_Userguide extends Controller_Template {
 		}
 		else
 		{
-			$this->template->menu = View::factory('userguide/menu',array('modules'=>Kohana::config('userguide.userguide')));
-			$this->template->breadcrumb = array($this->guide->uri() => 'User Guide','Error');
+			$this->template->menu = View::factory('userguide/menu', array('modules' => Kohana::config('userguide.userguide')));
+			$this->template->breadcrumb = array($this->guide->uri() => 'User Guide', 'Error');
 		}
 	}
 
@@ -103,7 +103,7 @@ class Controller_Userguide extends Controller_Template {
 		$page = $module.'/'.$this->request->param('page');
 		
 		// Trim trailing slashes, to ensure breadcrumbs work
-		$page = preg_replace('/\/+$/','',$page);
+		$page = trim($page,'/');
 
 		// If no module/page specified, show the index page, listing the modules
 		if ( ! $page)
@@ -306,7 +306,14 @@ class Controller_Userguide extends Controller_Template {
 	 */
 	public function title($page)
 	{
+		// If the url is the url from the config, return the name of this module
+		if ($page == $this->request->param('module'))
+			return Kohana::config('userguide.userguide.'.$this->request->param('module').'.name');
+		
 		$markdown = $this->_get_all_menu_markdown();
+		
+		// Trim off the module name, cause in the markdown the module name isn't there
+		$page = preg_replace('~^'.$this->request->param('module').'/~','',$page);
 		
 		if (preg_match('~\[([^\]]+)\]\('.preg_quote($page).'\)~mu', $markdown, $matches))
 		{
