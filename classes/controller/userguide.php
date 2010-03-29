@@ -310,9 +310,12 @@ class Controller_Userguide extends Controller_Template {
 		if ($page == $this->request->param('module'))
 			return Kohana::config('userguide.userguide.'.$this->request->param('module').'.name');
 		
-		$markdown = $this->_get_all_menu_markdown();
+		// Get the menu markdown
+		$menu = Kohana::config('userguide.userguide.'.$this->request->param('module').'.menu');
+		$menu = $this->file($menu);
+		$markdown = file_get_contents($menu);
 		
-		// Trim off the module name, cause in the markdown the module name isn't there
+		// Trim off the module name from the url, in the markdown the module name isn't part of the urls
 		$page = preg_replace('~^'.$this->request->param('module').'/~','',$page);
 		
 		if (preg_match('~\[([^\]]+)\]\('.preg_quote($page).'\)~mu', $markdown, $matches))
@@ -321,40 +324,8 @@ class Controller_Userguide extends Controller_Template {
 			return $matches[1];
 		}
 		
+		// If no match found, return the url of this page
 		return $page;
-	}
-	
-	/**
-	 * Get all the menu markdown merged together, and make it static so we only have to get it once
-	 * @return  string   the combined markdown of all the menus
-	 */
-	protected function _get_all_menu_markdown()
-	{
-		// Only do this once per request...
-		static $markdown = '';
-		
-		if (empty($markdown))
-		{
-			// Get core menu items
-			$file = $this->file('menu');
-	
-			if ($file AND $text = file_get_contents($file))
-			{
-				$markdown .= $text;
-			}
-			
-			// Look in module specific files
-			foreach(Kohana::config('userguide.userguide') as $module => $options)
-			{
-				if ($file = Kohana::find_file('guide',$options['menu'],'md') AND $text = file_get_contents($file))
-				{
-					// Concatenate markdown to produce one string containing all menu items
-					$markdown .="\n".$text;
-				}
-			}
-		}
-		
-		return $markdown;
 	}
 
 } // End Userguide
