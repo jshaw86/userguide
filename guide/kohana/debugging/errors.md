@@ -1,6 +1,6 @@
 # Error/Exception Handling
 
-Kohana provides both an exception handler and an error handler that transforms errors into exceptions using PHP's [ErrorException](http://php.net/errorexception) class. Many details of the error and the internal state of the application is displayed by the handler:
+Kohana provides both an exception handler and an error handler that transforms errors into exceptions using PHP's [ErrorException](http://php.net/errorexception) class. Many details of the error and the internal state of the application is displayed by the handler: 
 
 1. Exception class
 2. Error level
@@ -13,7 +13,7 @@ Kohana provides both an exception handler and an error handler that transforms e
 
 Click any of the links to toggle the display of additional information:
 
-<div>{{userguide/examples/error}}</div>
+<div>{{userguide/examples/error}}<br/></div>
 
 ## Disabling Error/Exception Handling
 
@@ -22,3 +22,5 @@ If you do not want to use the internal error handling, you can disable it when c
 ~~~
 Kohana::init(array('errors' => FALSE));
 ~~~
+
+[!!] It is recommend that errors be turned to FALSE on production environments, as uncaught exceptions can expose sensitive information.  However, in a production setting there should never be an uncaught exception.  If there is, you are either doing it wrong or something truly catastrophic has happened.

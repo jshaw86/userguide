@@ -29,6 +29,5 @@
    - [Cookies](security/cookies)
    - [Database](security/database)
 5. [Debugging](debugging)
-   - [Code](debugging/code)
    - [Error Handling](debugging/errors)
    - [Profiling](debugging/profiling)
