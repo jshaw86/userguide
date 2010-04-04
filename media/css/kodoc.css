@@ -1,5 +1,5 @@
 html { margin: 0; }
-body { margin: 0; background: #F1F8DB; }
+body { margin: 0; background: #fff; }
 pre { background: #eee; padding: 0.4em; border: dotted 1px #ddd; overflow: auto; }
 table th { color: #333; background: #e8e8e8; }
 table td { background: #f4f4f4; }
@@ -19,39 +19,39 @@ table td { background: #f4f4f4; }
 
 #header {
 	padding:0;
-	background:#77c244 url('../img/header.png') center top repeat-x;
+	background:black;
 	margin-bottom:10px;
-	border-bottom:1px solid #0D6D22;
 }
 	#header .container {
 		padding:10px 0;
 	}
 
 	ul.breadcrumb { display: block; margin: 0; padding:.3em 0; overflow: auto; }
-		ul.breadcrumb li { display: block; float: left; margin: 0; padding: 0; padding-left: 0.4em; font-size:1.6em; font-weight:bold; }
-		ul.breadcrumb li:before { content: '» '; color: #595959; }
-			ul.breadcrumb li a { color: #00262F; text-decoration: underline; }
-				ul.breadcrumb li a:hover { color:#1F6D5B; }
+		ul.breadcrumb li { display: block; float: left; margin: 0; padding: 0; padding-left: 0.4em; color: #ccc;}
+		ul.breadcrumb li:before { content: '» '; color: #999; }
+			ul.breadcrumb li a { color: #ccc; text-decoration: underline; }
+				ul.breadcrumb li a:hover { color:#fff; }
 
-	#content hr { margin: 1em 0 1em; background-color: #D2DDA8; }
-	
-	#content a { color: #004352; }
-	#content a:hover { color: #FF9900; }
-	#content a:active { text-decoration: none; }
+	.translations { float:right; margin-right:15px; }
+	.translations form { padding:0; margin:0; }
+	.translations select { width:200px; }
+
+#content hr { margin: 1em 0 1em; background-color: #D2DDA8; }
 
 #kodoc-content {
 	float:left;
-	width:690px;
+	width:660px;
 	margin-bottom:20px;
 	margin-right:20px;
-	padding-left:19px;
-	padding-right:19px;
+	padding-left:0px;
+	padding-right:39px;
+	border-right:1px solid #EEEEEE;
 	background:white;
 }
 	
-#kodoc-content h1 { margin: 0 -20px .7em; padding: 0.4em 20px; background: #9CE251; color: #113C32; }
-#kodoc-content h2 { margin: 0 -20px 0.535em; padding: 0.4em 20px; background: #E3EDC4; color:#245B35; }
-#kodoc-content h3 { margin-left:-8px; margin-right:-8px; padding: 0.4em 8px; background: #F1F8DB; color:#245B35; }
+#kodoc-content h1 { margin: 0 -20px .7em; padding: 0.4em 20px; background: #EEEEEE; color: #000; }
+#kodoc-content h2 { margin: 0 -20px 0.535em; padding: 0.4em 20px; background: #EEEEEE; color:#000; }
+#kodoc-content h3 { margin-left:-8px; margin-right:-8px; padding: 0.4em 8px; background: #EEEEEE; color:#000; }
 #kodoc-content h4 { border-bottom:1px solid #ccc; }
 #kodoc-content h1 small,
 #kodoc-content h2 small,
@@ -66,7 +66,7 @@ table td { background: #f4f4f4; }
 #kodoc-content h4:hover a.heading-link,
 #kodoc-content h5:hover a.heading-link,
 #kodoc-content h6:hover a.heading-link {display: block;}
-#kodoc-content pre { font-size: 1em; line-height: 1.4em; border:1px dashed #24933B; background:#f7f7f7; padding:8px; }
+#kodoc-content pre { font-size: 1em; line-height: 1.4em; border:1px dashed #aaa; background:#fafafa; padding:8px; }
 #kodoc-content pre,
 #kodoc-content code { color:#186027; }
 
@@ -92,16 +92,18 @@ table td { background: #f4f4f4; }
 	
 #kodoc-menu {
 	float:left;
-	width:200px;
+	width:206px;
+	padding:12px;
 	margin-bottom:40px;
-	background:#fff;
+	background:#EEEEEE;
 }
 
 	/* Kohana and Module headers */
-	#kodoc-menu h3 { font-size: 1.4em; margin: 0; padding: .5em .8em .4em; background:#9CE251; color:#00262F; }
+	#kodoc-menu h3 { font-size: 1em; margin: 0; font-weight:normal; padding: .3em .6em .2em; background:black; color:white; }
+	#kodoc-menu h3, #kodoc-menu h3 a { color:white; }
 	
 	/* Header for constants, properties, methods headers */
-	#kodoc-menu #class-menu h4 { font-size: 1.2em; margin: 0.6em 0.4em 0; padding: .3em .6em .2em; background:#F1F8DB; color:#245B35; }
+	#kodoc-menu #class-menu h4 { font-size: 1em; margin: 0.6em 0.3em 0; padding: .3em .6em .2em; background:#000; color:#FFF; }
 	#kodoc-menu #class-menu ul { margin-left:10px; margin-bottom:0.3em; }
 	#kodoc-menu #class-menu ul li { padding: 0.1em 0; }
 	#kodoc-menu #class-menu ul a { padding-left:0; background:none; }
@@ -137,7 +139,6 @@ table td { background: #f4f4f4; }
 		display: block;
 		padding: 0.1em 0 0 14px;
 		font-weight: bold;
-		color: #00262F;
 		background-position: -20px -20px; 
 	}
 	
@@ -161,16 +162,5 @@ table td { background: #f4f4f4; }
 #footer {
 	padding: 1em 0;
 	color: #666;
-	font-size: 0.9em;
+	font-size: 1em;
 }
-
-	#footer a {
-		color: #999;
-		text-decoration:underline;
-	}
-	#footer a:hover {
-		text-decoration:none;
-	}
-	#footer .copyright {
-		color: #aaa;
-	}
