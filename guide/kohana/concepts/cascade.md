@@ -18,7 +18,7 @@ Classes are loaded via the Kohana::auto_load method, which makes a simple conver
  2. Any underscore characters are converted to slashes
  3. The filename is lowercase
  
-For example, when calling a class that has not been loaded (eg: Session_Cookie), Kohana will search the filesystem using [Kohana::find_file] for a file name `classes/session/cookie.php`.
+For example, when calling a class that has not been loaded (eg: Session_Cookie), Kohana will search the filesystem using [Kohana::find_file] for a file named `classes/session/cookie.php`.
 
 ### What Kohana::find_file() does
 
@@ -72,7 +72,7 @@ So now when we call or use the Form class, `Kohana::find_file()` will look for `
 You can also do this to functions that exist, to change or add functionality.  As an example, here is a [Request class](http://github.com/bluehawk/kohanut-core/blob/dbe6afc67ff03529461d4d1e88910a59ca0fa6cd/classes/request.php) that adds `__call()` back in.  Simply save this file in the `classes` directory of application or any module.
 
 #### Views
-Let's say a module provides a view file (eq: `modules/foobar/views/errors/404`), and you want to change something in that view file. Rather than modifying the module's files, which could cause problems if you ever upgrade the module and overwrite your changes, you could copy that view file into your application folder and make the changes there.  When Kohana looks for the view `errors/404` it finds our modified `application/views/errors/404`, rather than `modules/foobar/views/errors/404`.
+Let's say a module provides a view file (eg: `modules/foobar/views/errors/404`), and you want to change something in that view file. Rather than modifying the module's files, which could cause problems if you ever upgrade the module and overwrite your changes, you could copy that view file into your application folder and make the changes there.  When Kohana looks for the view `errors/404` it finds our modified `application/views/errors/404`, rather than `modules/foobar/views/errors/404`.
 
 ### Config, I18n and Messages are merged
 
