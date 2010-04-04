@@ -24,6 +24,11 @@
 
 <div id="header">
 	<div class="container">
+		<div class="translations">
+			<?php echo form::open(NULL, array('method' => 'get')) ?>
+				<?php echo form::select('lang', $translations, I18n::$lang) ?>
+			<?php echo form::close() ?>
+		</div>
 		<ul class="breadcrumb">
 		<?php foreach ($breadcrumb as $link => $title): ?>
 			<li><?php echo is_int($link) ? $title : HTML::anchor($link, $title) ?></li>
