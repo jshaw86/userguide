@@ -133,7 +133,7 @@ class Kohana_Kodoc {
 
 		foreach ($list as $class)
 		{
-			$_class = new ReflectionClass(preg_replace('/\.|\-','',$class));
+			$_class = new ReflectionClass(preg_replace('/\.|\-/','',$class));
 
 			if (stripos($_class->name, 'Kohana') === 0)
 			{
