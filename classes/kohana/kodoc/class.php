@@ -45,7 +45,7 @@ class Kohana_Kodoc_Class extends Kodoc {
 	 */
 	public function __construct($class)
 	{
-		$this->class = new ReflectionClass($class);
+		$this->class = new ReflectionClass(preg_replace('/\.|\-','',$class));
 
 		if ($modifiers = $this->class->getModifiers())
 		{
