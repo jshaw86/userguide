@@ -145,8 +145,10 @@ class Controller_Userguide extends Controller_Template {
 			
 			$this->template->title = $class;
 
+			$kodoc = Kodoc::factory($class);
+
 			$this->template->content = View::factory('userguide/api/class')
-				->set('doc', Kodoc::factory($class))
+				->set('doc', $kodoc)
 				->set('route', $this->request->route);
 		}
 		else

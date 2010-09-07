@@ -109,8 +109,7 @@ class Kohana_Kodoc {
 
 				// Convert slashes to underscores
 				$class = str_replace(DIRECTORY_SEPARATOR, '_', strtolower($class));
-
-				$classes[$class] = $class;
+				if(preg_match('/^([a-zA-Z0-9]+\_{0,1})+[a-zA-Z0-9]+$/', $class)) $classes[$class] = $class;
 			}
 		}
 
@@ -133,7 +132,7 @@ class Kohana_Kodoc {
 
 		foreach ($list as $class)
 		{
-			$_class = new ReflectionClass(preg_replace('/\.|\-/','',$class));
+			$_class = new ReflectionClass($class);
 
 			if (stripos($_class->name, 'Kohana') === 0)
 			{

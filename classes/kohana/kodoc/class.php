@@ -45,8 +45,8 @@ class Kohana_Kodoc_Class extends Kodoc {
 	 */
 	public function __construct($class)
 	{
-		$this->class = new ReflectionClass(preg_replace('/\.|\-/','',$class));
-
+		$this->class = new ReflectionClass($class);
+		
 		if ($modifiers = $this->class->getModifiers())
 		{
 			$this->modifiers = '<small>'.implode(' ', Reflection::getModifierNames($modifiers)).'</small> ';
@@ -72,6 +72,7 @@ class Kohana_Kodoc_Class extends Kodoc {
 		}
 		while ($parent = $parent->getParentClass());
 
+		FB::log($this->class,'class');
 		list($this->description, $this->tags) = Kodoc::parse($comment);
 	}
 
