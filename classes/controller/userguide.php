@@ -233,6 +233,8 @@ class Controller_Userguide extends Controller_Template {
 				$media->uri(array('file' => 'css/shThemeKodoc.css')) => 'screen',
 			);
 
+			FB::log($this->template->styles);
+
 			// Add scripts
 			$this->template->scripts = array(
 				$media->uri(array('file' => 'js/jquery.min.js')),

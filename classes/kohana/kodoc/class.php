@@ -35,6 +35,24 @@ class Kohana_Kodoc_Class extends Kodoc {
 	 */
 	public $constants = array();
 
+	public function getComments() {
+
+		$expr = "/((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/";
+
+		$filename = $this->fileDir; //file directory
+		$file = fopen($filename, "r");
+		$length = filesize($filename);
+		$comments = fread($file, $length);
+
+		preg_match_all($expr, $comments, $matchs); //capture the comments
+
+		foreach($matchs[0] as $id => $variable){
+			$comments = str_replace($variable,'',$comments); // replace the scores of empty
+		}
+		fclose($file);
+		$file = fopen($filename, "w");
+		$file = fwrite($file, $comments);
+	} 
 	/**
 	 * Loads a class and uses [reflection](http://php.net/reflection) to parse
 	 * the class. Reads the class modifiers, constants and comment. Parses the
@@ -62,6 +80,7 @@ class Kohana_Kodoc_Class extends Kodoc {
 
 		$parent = $this->class;
 
+		$comment = false;
 		do
 		{
 			if ($comment = $parent->getDocComment())
@@ -72,7 +91,6 @@ class Kohana_Kodoc_Class extends Kodoc {
 		}
 		while ($parent = $parent->getParentClass());
 
-		FB::log($this->class,'class');
 		list($this->description, $this->tags) = Kodoc::parse($comment);
 	}
 

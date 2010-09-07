@@ -41,6 +41,7 @@ class Kohana_Kodoc_Method extends Kodoc {
 			$this->modifiers = '<small>'.implode(' ', Reflection::getModifierNames($modifiers)).'</small> ';
 		}
 
+		$comment = false;
 		do
 		{
 			if ($parent->hasMethod($method) AND $comment = $parent->getMethod($method)->getDocComment())
@@ -50,7 +51,7 @@ class Kohana_Kodoc_Method extends Kodoc {
 			}
 		}
 		while ($parent = $parent->getParentClass());
-
+		
 		list($this->description, $tags) = Kodoc::parse($comment);
 
 		if ($file = $this->class->getFileName())

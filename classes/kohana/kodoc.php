@@ -23,7 +23,6 @@ class Kohana_Kodoc {
 	public static function menu()
 	{
 		$classes = Kodoc::classes();
-
 		foreach ($classes as $class)
 		{
 			if (isset($classes['kohana_'.$class]))
@@ -71,7 +70,6 @@ class Kohana_Kodoc {
 				$menu['[Unknown]']['Base'][] = $link;
 			}
 		}
-
 		// Sort the packages
 		ksort($menu);
 
@@ -195,7 +193,7 @@ class Kohana_Kodoc {
 				unset($comment[$i]);
 
 				$name = $matches[1];
-				$text = isset($matches[2]) ? $matches[2] : '';
+				$text = isset($matches[2]) ? trim($matches[2]) : '';
 
 				switch ($name)
 				{
@@ -255,7 +253,7 @@ class Kohana_Kodoc {
 			// Parse the comment with Markdown
 			$comment = Markdown($comment);
 		}
-
+		
 		return array($comment, $tags);
 	}
 
