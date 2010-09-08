@@ -54,7 +54,7 @@ table td { background: #f4f4f4; }
 	#content div.toc h3 { margin: 0; padding: 0.2em 1em; font-size: 1em; color: #eee; background: #111; }
 #content div.method,
 #content div.properties,
-#content div.constants { margin-bottom: 1em; }
+#content div.constants { margin-bottom: 1em; border-bottom:1px dotted #FAAAAE;}
 	#content div.method h3 .param { font-weight: normal; cursor: help; border-bottom:1px dashed #666;}
 	#content div.method h3 abbr.param { text-transform: none; font-size: 1em; }
 #content p.note { display: block; padding: 0.4em 0.6em; padding-left: 3em; background: #efefef url(../img/note.png) 1em 0.6em no-repeat; color: #444; border: solid 1px #eee; }
