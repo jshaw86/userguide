@@ -5,13 +5,20 @@
 <li><span><strong><?php echo $package ?></strong></span>
 	<ol>
 	<?php foreach ($categories as $category => $classes): sort($classes); ?>
-		<li><?php if ($category !== 'Base'): ?><span><?php echo $category ?></span>
-			<ol><?php endif ?>
-			<?php foreach ($classes as $class): ?>
+		<?php FB::log($classes); ?>
+		<?php if ($category !== 'Base'): ?>
+			<li><span><?php echo $category ?></span>
+				<ol>
+				<?php foreach ($classes as $class): ?>
+					<li><?php echo $class ?></li>
+				<?php endforeach ?>
+				</ol>
+			</li>
+		<?php else: ?>
+		 	<?php foreach ($classes as $class): ?>
 				<li><?php echo $class ?></li>
 			<?php endforeach ?>
-			<?php if ($category !== 'Base'): ?></ol><?php endif ?>
-		</li>
+		<?php endif ?>
 	<?php endforeach ?>
 	</ol>
 <?php endforeach ?>
